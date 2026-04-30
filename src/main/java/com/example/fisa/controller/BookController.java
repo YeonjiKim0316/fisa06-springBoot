@@ -1,0 +1,45 @@
+package com.example.fisa.controller;
+
+import com.example.fisa.entity.Book;
+import com.example.fisa.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+// controller/BookController.java
+@RestController
+@RequestMapping("api/v1/books")
+public class BookController {
+    // 의존성(Dependency) bookService을 스프링이 관리하는 bean을 주입(Injection)
+    // private: 클래스 바깥에서 접근 불가
+    // final: 재정의 불가, 다른 사람들이 실수로 객체를 변경할 수 없도록
+    private final BookService bookService;
+//    BookService bookService = new BookService();
+
+    // 생성자
+    @Autowired // 생략해도 Spring이 알아서 관리
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
+
+    @GetMapping
+    public List<Book> getAllBooks() {
+        return bookService.getAllBooks();
+    }
+//
+//    @GetMapping("/{id}") // 동적으로 바뀌는 값 @PathVariable 사용
+//    public Optional<Book> getBookById(@PathVariable Long id) {
+//        return bookService.getBookById(id);
+//    }
+//
+    @PostMapping
+    public Book saveBook(@RequestBody Book book) {
+        return bookService.saveBook(book);
+    }
+//
+//    @DeleteMapping("/{id}")
+//    public void deleteBook(@PathVariable Long id) {
+//        bookService.deleteBook(id);
+//    }
+}

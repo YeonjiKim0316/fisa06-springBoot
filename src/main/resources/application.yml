@@ -1,0 +1,36 @@
+
+# 위 파일 삭제 후 resources/application.yml로 변경 후 확인
+# server.port=8081 를 추가해서 locahost:8081로 접속해보세요
+server:
+  port: 8081
+spring:
+  application:
+    name: fisa
+  datasource:
+    url: jdbc:h2:~/test
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  # JPA 및 Hibernate 설정
+  jpa:
+    show-sql: true
+    hibernate:
+      #
+      # ddl-auto 옵션: create, create-drop, update, validate, none
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+
+    # 방언(Dialect) 설정
+    #    database-platform: org.hibernate.dialect.MySQL8Dialect
+    # H2 사용 시 아래 방언을 사용하세요
+    database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+
+app:
+  title: 스프링 부트 애플리케이션
+
+
