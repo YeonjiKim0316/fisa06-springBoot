@@ -1,0 +1,38 @@
+<!-- templates/fragments/book-list.html -->
+<div th:fragment="content">
+    <div class="card mb-4">
+        <div class="card-header bg-secondary text-white">📚 책 목록</div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead class="table-light">
+                <tr>
+                    <th>제목</th>
+                    <th>저자</th>
+                    <th>장르</th>
+                    <th>페이지</th>
+                    <th>가격</th>
+                    <th>액션</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="book : ${books}">
+                    <td th:text="${book.title}">제목</td>
+                    <td th:text="${book.author}">저자</td>
+                    <td th:text="${book.genre}">장르</td>
+                    <td th:text="${book.page}">페이지</td>
+                    <td th:text="${book.price}">가격</td>
+                    <td>
+                        <form th:action="@{/books/{id}/delete(id=${book.id})}" method="post" class="d-inline">
+                            <button class="btn btn-sm btn-danger">삭제</button>
+                        </form>
+                        <form th:action="@{/books/{id}/edit(id=${book.id})}" method="get" class="d-inline">
+                            <button class="btn btn-sm btn-secondary">수정</button>
+                        </form>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

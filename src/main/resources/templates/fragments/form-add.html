@@ -1,0 +1,31 @@
+<!-- templates/fragments/form-add.html -->
+<div th:fragment="content">
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">➕ 책 추가</div>
+        <div class="card-body">
+            <form th:action="@{/books}" method="post">
+                <div class="mb-3">
+                    <label class="form-label">제목</label>
+                    <input type="text" name="title" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">저자</label>
+                    <input type="text" name="author" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">장르</label>
+                    <input type="text" name="genre" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">페이지 수</label>
+                    <input type="number" name="page" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">가격</label>
+                    <input type="number" name="price" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary">저장</button>
+            </form>
+        </div>
+    </div>
+</div>

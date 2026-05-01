@@ -1,0 +1,45 @@
+<!-- templates/fragments/form-search.html -->
+<div th:fragment="content">
+    <div class="card">
+        <div class="card-header bg-info text-white">🔍 책 조회</div>
+        <div class="card-body">
+            <form th:action="@{/books/select4}" method="get" class="row row-cols-lg-auto g-2 align-items-center">
+
+                <!-- 제목 입력 -->
+                <div class="col-12">
+                    <label class="visually-hidden" for="title">제목</label>
+                    <input type="text" id="title" name="title" class="form-control form-control-sm" placeholder="제목">
+                </div>
+
+                <!-- 저자 입력 -->
+                <div class="col-12">
+                    <label class="visually-hidden" for="author">저자</label>
+                    <input type="text" id="author" name="author" class="form-control form-control-sm" placeholder="저자">
+                </div>
+
+                <!-- AND/OR 선택 (제목+저자 동시 입력 시 적용) -->
+                <div class="col-12 d-flex gap-2 align-items-center">
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input" type="radio" name="searchType" id="searchOr" value="or" checked>
+                        <label class="form-check-label" for="searchOr">OR</label>
+                    </div>
+                    <div class="form-check form-check-inline mb-0">
+                        <input class="form-check-input" type="radio" name="searchType" id="searchAnd" value="and">
+                        <label class="form-check-label" for="searchAnd">AND</label>
+                    </div>
+                </div>
+
+                <!-- 조회 버튼 -->
+                <div class="col-12">
+                    <button type="submit" class="btn btn-sm btn-outline-primary">조회</button>
+                </div>
+
+                <!-- 새로고침 버튼 -->
+                <div class="col-12">
+                    <a href="/books" class="btn btn-sm btn-outline-secondary">목록 새로고침</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

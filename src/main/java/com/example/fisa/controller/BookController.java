@@ -44,4 +44,11 @@ public class BookController {
     public void deleteBook(@PathVariable Long id) {
         bookService.deleteBook(id);
     }
+
+    // PUT은 DB에서 전체 데이터를 가져와 전체를 변경
+    @PutMapping("/{id}")
+    public void updateBy
+
+    // PATCH는 DB에서 전체 데이터를 가져와서 일부 데이터만 변경
+//    @PatchMapping("/{id}")
 }
