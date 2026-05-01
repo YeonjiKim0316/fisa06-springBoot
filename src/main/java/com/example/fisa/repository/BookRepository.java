@@ -22,6 +22,12 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     // "find + By + 필드명 + 조건키워드" 형식으로 작성합니다
     // ─────────────────────────────────────────────
     List<Book> findByPageBetween(int minPage, int maxPage);
+
+    List<Book> findByTitle(String title); // 완전일치
+
+    List<Book> findByTitleContaining(String title); // 일부일치
+
+    List<Book> findByTitleContainingAndAuthorContaining(String title, String author); // 완전 일치  and
     // ─────────────────────────────────────────────
     // JPQL(Java Persistence Query Language): 테이블명 대신 Entity 클래스명을 사용하는 쿼리
     // SQL: SELECT * FROM book WHERE ...

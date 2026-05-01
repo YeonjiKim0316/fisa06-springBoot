@@ -66,11 +66,20 @@ public class BookController {
         return bookService.getBookByPages(minPage, maxPage);
     }
 
-//    - getBookByTitle
-//    - 책이름으로 책을 검색하는 API
-//    - // books/select?title=책이름
-//            - 완전일치/일부일치 여부 확인해보기
-//- getBookByTitleAndAuthor:
-//            - 책이름과 저자로 책을 검색하는 API
-//    - // books/select?title=책이름&author= 저자
+    //    - getBookByTitle
+    //    - 책이름으로 책을 검색하는 API
+    //    - // books/select1?title=책이름
+    //            - 완전일치/일부일치 여부 확인해보기
+    @GetMapping("/select1")
+    public List<Book> getBookByTitle(@RequestParam String title) {
+        return bookService.getBookByTitle(title);
+    }
+    //- getBookByTitleAndAuthor:
+    //            - 책이름과 저자로 책을 검색하는 API
+    //    - // books/select2?title=책이름&author=저자
+    @GetMapping("/select2")
+    public List<Book> getBookByTitleAndAuthor(@RequestParam String title, @RequestParam String author) {
+        return bookService.getBookByTitleAndAuthor(title, author);
+    }
+
 }
