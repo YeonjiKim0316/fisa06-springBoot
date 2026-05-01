@@ -82,4 +82,12 @@ public class BookController {
         return bookService.getBookByTitleAndAuthor(title, author);
     }
 
+    //- getBookByTitleOrAuthor:
+    //            - 책이름이 일부 일치하거나 저자명이 일부일치하는 조건으로 책을 검색하는 API
+    //    - // books/select4?title=책이름&author=저자
+    @GetMapping("/select4")
+    public List<Book> getBookByTitleOrAuthor(@RequestParam String title, @RequestParam String author) {
+        return bookService.getBookByTitleOrAuthor(title, author);
+    }
+
 }

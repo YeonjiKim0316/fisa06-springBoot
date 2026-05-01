@@ -28,6 +28,8 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     List<Book> findByTitleContaining(String title); // 일부일치
 
     List<Book> findByTitleContainingAndAuthorContaining(String title, String author); // 완전 일치  and
+
+    List<Book> findByTitleContainingOrAuthorContaining(String title, String author);
     // ─────────────────────────────────────────────
     // JPQL(Java Persistence Query Language): 테이블명 대신 Entity 클래스명을 사용하는 쿼리
     // SQL: SELECT * FROM book WHERE ...

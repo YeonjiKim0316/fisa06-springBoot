@@ -74,4 +74,9 @@ public class BookService {
     public List<Book> getBookByTitleAndAuthor(String title, String author) {
         return bookRepository.findByTitleContainingAndAuthorContaining(title, author);
     }
+
+    public List<Book> getBookByTitleOrAuthor(String title, String author) {
+        return bookRepository.findByTitleContainingOrAuthorContaining(title, author);
+
+    }
 }
