@@ -38,4 +38,28 @@ public class BookService {
     }
 
 
+    public Book updateByBookById2(Long id, Book book) {
+        // DB에서 기존 book 객체를 가져온다
+        Book existingBook = bookRepository.findById(id).orElse(null);
+        // 요청에 포함된 필드만 덮어쓴다
+        // 요청에 포함된 필드만 골라서 덮어씁니다 (null이면 변경 안 함)
+        // int 기본형인 page는 null이 없으므로 0(기본값)일 때를 "변경 없음"으로 처리합니다
+        if (book.getTitle() != null) {
+            existingBook.setTitle(book.getTitle());
+        }
+        if (book.getAuthor() != null) {
+            existingBook.setAuthor(book.getAuthor());
+        }
+        if (book.getPage() != 0) {
+            existingBook.setPage(book.getPage());
+        }
+        if (book.getGenre() != null) {
+            existingBook.setGenre(book.getGenre());
+        }
+        if (book.getPrice() != 0) {
+            existingBook.setPrice(book.getPrice());
+        }
+
+        return bookRepository.save(existingBook);
+    }
 }

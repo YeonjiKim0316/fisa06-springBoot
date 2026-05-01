@@ -35,20 +35,28 @@ public class BookController {
         return bookService.getBookById(id);
     }
 
-    @PostMapping
-    public Book saveBook(@RequestBody Book book) {
-        return bookService.saveBook(book);
-    }
 
     @DeleteMapping("/{id}")
     public void deleteBook(@PathVariable Long id) {
         bookService.deleteBook(id);
     }
 
+
+    @PostMapping
+    public Book saveBook(@RequestBody Book book) {
+        return bookService.saveBook(book);
+    }
+
     // PUT은 DB에서 전체 데이터를 가져와 전체를 변경
     @PutMapping("/{id}")
-    public void updateBy
+    public void updateByBookById(@PathVariable Long id, @RequestBody Book book){
+        book.setId(id); // controller에서 id를 함께 전달
+        bookService.saveBook(book); // bookService의 saveBook을 재사용
+    }
 
     // PATCH는 DB에서 전체 데이터를 가져와서 일부 데이터만 변경
-//    @PatchMapping("/{id}")
+    @PatchMapping("/{id}")
+    public void updateByBookById2(@PathVariable Long id, @RequestBody Book book){
+        bookService.updateByBookById2(id, book);
+    }
 }
