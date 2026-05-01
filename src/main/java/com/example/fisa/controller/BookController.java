@@ -2,12 +2,17 @@ package com.example.fisa.controller;
 
 import com.example.fisa.entity.Book;
 import com.example.fisa.service.BookService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
+// REST API에 설명을 달거나, REST API가 아닌 경우에는 아래와 같이 @Tag와 @Operation을 사용하면 작성됩니다.
+
+@Tag(name = "swagger 테스트 API", description = "swagger 테스트를 진행하는 API")
 // controller/BookController.java
 @RestController
 @RequestMapping("api/v1/books")
@@ -24,12 +29,14 @@ public class BookController {
         this.bookService = bookService;
     }
 
+    @Operation(summary = "Book 정보 모두 조회", description = "Book의 전체 정보를 조회합니다.")
     @GetMapping
     public List<Book> getAllBooks() {
         return bookService.getAllBooks();
     }
 
     // Optional<제너릭> 하면 값이 있으면 해당 값, 없으면 null을 리턴하도록 감싸주는 wrapper class
+    @Operation(summary = "Book 정보 개별 조회", description = "Book의 단권 정보를 조회합니다.")
     @GetMapping("/{id}") // 동적으로 바뀌는 값 @PathVariable 사용
     public Optional<Book> getBookById(@PathVariable Long id) {
         return bookService.getBookById(id);

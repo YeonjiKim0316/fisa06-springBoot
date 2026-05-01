@@ -46,3 +46,25 @@ app:
   title: 스프링 부트 애플리케이션
 
 
+logging:
+  # logging trace < debug < info < warn < error < fatal - 특별히 설정하지 않으면 info
+  # 로그를 기록할 레벨 순서
+  level:
+    root: info
+
+  # 로그파일 이름
+  file:
+    name: logs/demo.log
+
+  # 로그파일에서 사용할 날짜 시간 형식과 타임존
+  pattern:
+    dateformat: "yyyy-MM-dd HH:mm:ss.SSS,Asia/Seoul"
+
+  logback:
+    rollingpolicy:
+      # 로그파일을 유지할 기간
+      max-history: 30
+      # 로그파일 1개의 최대 용량
+      max-file-size: 100MB
+      # 로그파일이 설정한 용량을 초과하거나 날짜가 변경될 경우 새로 만들어질 파일명
+      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}-%i.log

@@ -1,10 +1,12 @@
 package com.example.fisa.controller;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 // controller/HelloController.java
+@Slf4j
 @RestController // RESTApi로 통신
 @RequestMapping("/hello")   // @WebServlet("/hello)
 public class HelloController {
@@ -15,6 +17,12 @@ public class HelloController {
 
     @GetMapping // doGet 받아와서 overide - redirect / request.dispatcher(
     public String sayHello() {
+        log.trace("--- 개발시 특정 흐름을 추적하기 위한 trace 단계의 log");
+        log.debug("---debug 단계의 log");
+        log.info("---info 단계의 log");
+        log.warn("---warn 단계의 log");
+        log.error("---error 단계의 log");
+
         return "Hello, Spring Boot!";
     }
 
