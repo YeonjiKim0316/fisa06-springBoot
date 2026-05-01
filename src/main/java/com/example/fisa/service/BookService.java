@@ -62,4 +62,8 @@ public class BookService {
 
         return bookRepository.save(existingBook);
     }
+
+    public List<Book> getBookByPages(int minPage, int maxPage) {
+        return bookRepository.findByPageBetween(minPage, maxPage);
+    }
 }
