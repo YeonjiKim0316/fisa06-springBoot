@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 // JpaRepository<Book, Long>을 상속하면:
 //   - 첫 번째 타입(Book): 다룰 Entity 클래스
 //   - 두 번째 타입(Long): 해당 Entity의 PK 타입
-//   - save(), findById(), findAll(), deleteById(), count() 등 기본 CRUD 메서드가 자동 제공됩니다
+//   - save(book), findById(), findAll(), deleteById(), count() 등 기본 CRUD 메서드가 자동 제공됩니다
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
     // 여기에 필요한 경우 사용자 정의 쿼리를 추가할 수 있습니다.

@@ -15,12 +15,18 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      #
+      # JPA DDL (Data Definition Language) 자동 생성 설정
+      # none: 사용 안 함 (기본값)
+      # update: 스키마 변경 사항만 반영
+      # create-drop: 애플리케이션 시작 시 생성, 종료 시 삭제 (테스트 환경에 적합)
+      # create: 애플리케이션 시작 시 생성
       # ddl-auto 옵션: create, create-drop, update, validate, none
-      ddl-auto: create
+      # 처음에는 create로 걸어놓고 이후에는 update 상태로 개발 진행
+      # 운영중인 DB에는 validate 로 변경하고 사용
+      ddl-auto: update
     properties:
       hibernate:
-        format_sql: true
+        format_sql: true # 사람이 보기 좋게 출력
 
     # 방언(Dialect) 설정
     #    database-platform: org.hibernate.dialect.MySQL8Dialect
@@ -29,7 +35,13 @@ spring:
   h2:
     console:
       enabled: true
-
+  # Thymeleaf 전용 ViewResolver
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+    cache: false
 app:
   title: 스프링 부트 애플리케이션
 

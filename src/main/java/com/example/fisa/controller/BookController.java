@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 // controller/BookController.java
 @RestController
@@ -27,19 +28,20 @@ public class BookController {
     public List<Book> getAllBooks() {
         return bookService.getAllBooks();
     }
-//
-//    @GetMapping("/{id}") // 동적으로 바뀌는 값 @PathVariable 사용
-//    public Optional<Book> getBookById(@PathVariable Long id) {
-//        return bookService.getBookById(id);
-//    }
-//
+
+    // Optional<제너릭> 하면 값이 있으면 해당 값, 없으면 null을 리턴하도록 감싸주는 wrapper class
+    @GetMapping("/{id}") // 동적으로 바뀌는 값 @PathVariable 사용
+    public Optional<Book> getBookById(@PathVariable Long id) {
+        return bookService.getBookById(id);
+    }
+
     @PostMapping
     public Book saveBook(@RequestBody Book book) {
         return bookService.saveBook(book);
     }
-//
-//    @DeleteMapping("/{id}")
-//    public void deleteBook(@PathVariable Long id) {
-//        bookService.deleteBook(id);
-//    }
+
+    @DeleteMapping("/{id}")
+    public void deleteBook(@PathVariable Long id) {
+        bookService.deleteBook(id);
+    }
 }
