@@ -89,19 +89,19 @@ class BookServiceTest {
         then(bookRepository).should().save(sampleBook);
     }
 
-//    @Test
-//    @DisplayName("존재하지 않는 ID로 부분수정 시 BookNotFoundException이 발생한다")
-//    void updateBookById2_notFound_throwsException() {
-//        // Optional.empty(): 값이 없는 Optional — "DB에서 찾지 못함"을 표현합니다
-//        given(bookRepository.findById(999L)).willReturn(Optional.empty());
-//
-//        // assertThatThrownBy: 람다 안의 코드가 예외를 던지는지 검증합니다
-//        // .isInstanceOf(): 던진 예외가 지정한 타입인지 확인합니다
-//        // .hasMessageContaining(): 예외 메시지에 해당 문자열이 포함되는지 확인합니다
-//        assertThatThrownBy(() -> bookService.updateByBookById2(999L, sampleBook))
-//                .isInstanceOf(BookNotFoundException.class)
-//                .hasMessageContaining("999");
-//    }
+    @Test
+    @DisplayName("존재하지 않는 ID로 부분수정 시 BookNotFoundException이 발생한다")
+    void updateBookById2_notFound_throwsException() {
+        // Optional.empty(): 값이 없는 Optional — "DB에서 찾지 못함"을 표현합니다
+        given(bookRepository.findById(999L)).willReturn(Optional.empty());
+
+        // assertThatThrownBy: 람다 안의 코드가 예외를 던지는지 검증합니다
+        // .isInstanceOf(): 던진 예외가 지정한 타입인지 확인합니다
+        // .hasMessageContaining(): 예외 메시지에 해당 문자열이 포함되는지 확인합니다
+        assertThatThrownBy(() -> bookService.updateByBookById2(999L, sampleBook))
+                .isInstanceOf(BookNotFoundException.class)
+                .hasMessageContaining("999");
+    }
 
     @Test
     @DisplayName("삭제 시 Repository의 deleteById가 호출된다")

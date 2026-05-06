@@ -1,6 +1,7 @@
 package com.example.fisa.service;
 
 import com.example.fisa.entity.Book;
+import com.example.fisa.exception.BookNotFoundException;
 import com.example.fisa.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,8 +40,10 @@ public class BookService {
 
 
     public Book updateByBookById2(Long id, Book book) {
-        // DB에서 기존 book 객체를 가져온다
-        Book existingBook = bookRepository.findById(id).orElse(null);
+            // orElseThrow: Optional이 비어 있으면(id에 해당하는 책이 없으면) 예외를 던집니다
+            // → 예전 코드의 orElse(null)은 existingBook.setTitle() 호출 시 NullPointerException 위험이 있었습니다
+            Book existingBook = bookRepository.findById(id)
+                    .orElseThrow(() -> new BookNotFoundException(id));
         // 요청에 포함된 필드만 덮어쓴다
         // 요청에 포함된 필드만 골라서 덮어씁니다 (null이면 변경 안 함)
         // int 기본형인 page는 null이 없으므로 0(기본값)일 때를 "변경 없음"으로 처리합니다
