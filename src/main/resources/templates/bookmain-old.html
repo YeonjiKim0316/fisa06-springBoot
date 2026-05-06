@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>책 관리</title>
+    <!-- Bootstrap 5 CSS 로드 -->
+    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+
+    <!-- 정적 이미지 표시  HelloController와 겹쳐서 안나옴 -->
+    <div class="text-center mb-4">
+        <img th:src="@{/jjanggu.png}" alt="Jjangu 이미지" class="img-fluid" style="max-height: 150px;">
+    </div>
+
+    <!-- 책 추가 폼 -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">📘 책 추가</div>
+        <div class="card-body">
+            <!-- th:action → 서버 측 컨트롤러 URL과 매핑 -->
+            <form th:action="@{/books}" method="post">
+                <div class="mb-3">
+                    <label for="title" class="form-label">제목</label>
+                    <input type="text" id="title" name="title" class="form-control" required/>
+                </div>
+                <div class="mb-3">
+                    <label for="author" class="form-label">저자</label>
+                    <input type="text" id="author" name="author" class="form-control" required/>
+                </div>
+                <div class="mb-3">
+                    <label for="page" class="form-label">페이지 수</label>
+                    <input type="number" id="page" name="page" class="form-control" required/>
+                </div>
+                <button type="submit" class="btn btn-success">추가</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 책 목록 -->
+    <div class="card mb-4">
+        <div class="card-header bg-secondary text-white">📚 책 목록</div>
+        <div class="card-body">
+            <table class="table table-bordered table-hover text-center">
+                <thead class="table-dark">
+                <tr>
+                    <th>제목</th>
+                    <th>저자</th>
+                    <th>페이지 수</th>
+                    <th>수정</th>
+                    <th>삭제</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- th:each → 리스트 반복 (book 객체들을 순차적으로 반복 렌더링) -->
+                <tr th:each="book : ${books}">
+                    <!-- th:text → 변수 값 출력 (title 속성 출력) -->
+                    <td th:text="${book.title}">제목</td>
+                    <td th:text="${book.author}">저자</td>
+                    <td th:text="${book.page}">페이지 수</td>
+                    <td>
+                        <!-- 수정 폼 -->
+                        <!-- th:action에 경로 변수 전달 (id 동적 바인딩) -->
+                        <form th:action="@{/books/{id}/update(id=${book.id})}" method="post">
+                            <input type="hidden" name="_method" value="put"/> <!-- RESTful 방식 대응 -->
+                            <!-- th:value → 입력 필드에 값 세팅 -->
+                            <input type="text" name="title" class="form-control mb-1" th:value="${book.title}" required/>
+                            <input type="text" name="author" class="form-control mb-1" th:value="${book.author}" required/>
+                            <input type="number" name="page" class="form-control mb-1" th:value="${book.page}" required/>
+                            <button type="submit" class="btn btn-primary btn-sm w-100">수정</button>
+                        </form>
+                    </td>
+                    <td>
+                        <!-- 삭제 폼 -->
+                        <!-- th:action에 동적 ID 경로 전달 -->
+                        <form th:action="@{/books/{id}/delete(id=${book.id})}" method="post">
+                            <input type="hidden" name="_method" value="delete"/>
+                            <button type="submit" class="btn btn-danger btn-sm">삭제</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 책 조회 폼 -->
+    <div class="card mb-4">
+        <div class="card-header bg-info text-white">🔍 책 조회</div>
+        <div class="card-body">
+            <!-- 조회 폼 (GET 방식) -->
+            <form th:action="@{/books/select4}" method="get">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="title" class="form-label">제목</label>
+                        <input type="text" id="title" name="title" class="form-control"/>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="author" class="form-label">저자</label>
+                        <input type="text" id="author" name="author" class="form-control"/>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-outline-primary">조회</button>
+                <a href="/books" class="btn btn-outline-secondary ms-2">목록 새로고침</a>
+            </form>
+        </div>
+    </div>
+
+    <!-- 푸터 -->
+    <footer class="text-center mt-5">
+        <p class="text-muted">&copy; 2025 Book Management System</p>
+    </footer>
+</div>
+
+<!-- Bootstrap 5 JS 로드 -->
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+
+# 위 파일 삭제 후 resources/application.yml로 변경 후 확인
+# server.port=8081 를 추가해서 locahost:8081로 접속해보세요
+
+# application.yml
+spring:
+  application:
+    name: fisa
+
+  datasource:
+    # 1. MySQL 설정 (현재 활성화된 설정)
+    url: jdbc:mysql://${host}:3306/${database}?useSSL=false&serverTimezone=Asia/Seoul
+    username: ${username}
+    password: ${password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#  datasource:
+#    url: jdbc:h2:~/test
+#    driver-class-name: org.h2.Driver
+#    username: sa
+#    password:
+  # JPA 및 Hibernate 설정
+  jpa:
+    show-sql: true
+    hibernate:
+      # JPA DDL (Data Definition Language) 자동 생성 설정
+      # none: 사용 안 함 (기본값)
+      # update: 스키마 변경 사항만 반영
+      # create-drop: 애플리케이션 시작 시 생성, 종료 시 삭제 (테스트 환경에 적합)
+      # create: 애플리케이션 시작 시 생성
+      # ddl-auto 옵션: create, create-drop, update, validate, none
+      # 처음에는 create로 걸어놓고 이후에는 update 상태로 개발 진행
+      # 운영중인 DB에는 validate 로 변경하고 사용
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true # 사람이 보기 좋게 출력
+
+    # 방언(Dialect) 설정
+#        database-platform: org.hibernate.dialect.MySQL8Dialect
+    # H2 사용 시 아래 방언을 사용하세요
+        database-platform: org.hibernate.dialect.MySQL8Dialect
+  h2:
+    console:
+      enabled: true
+  # Thymeleaf 전용 ViewResolver
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+    cache: false
+app:
+  title: 스프링 부트 애플리케이션
+
+
+logging:
+  # logging trace < debug < info < warn < error < fatal - 특별히 설정하지 않으면 info
+  # 로그를 기록할 레벨 순서
+  level:
+    root: info
+
+  # 로그파일 이름
+  file:
+    name: logs/demo.log
+
+  # 로그파일에서 사용할 날짜 시간 형식과 타임존
+  pattern:
+    dateformat: "yyyy-MM-dd HH:mm:ss.SSS,Asia/Seoul"
+
+  logback:
+    rollingpolicy:
+      # 로그파일을 유지할 기간
+      max-history: 30
+      # 로그파일 1개의 최대 용량
+      max-file-size: 100MB
+      # 로그파일이 설정한 용량을 초과하거나 날짜가 변경될 경우 새로 만들어질 파일명
+      file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}-%i.log
